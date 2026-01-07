@@ -19,7 +19,7 @@ import { adminAuth } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post("/", upload.fields([{ name: "image" }, { name: "audio" }]), addWord);
+router.post("/", upload.any(), addWord);
 router.get("/", getWords);
 router.get("/approved", getApprovedWords);
 router.get("/hidden", getHiddenWords);
@@ -31,7 +31,7 @@ router.put("/move/:id", adminAuth, moveWord);
 router.put(
   "/:id",
   adminAuth,
-  upload.fields([{ name: "image" }, { name: "audio" }]),
+  upload.any(),
   updateWord
 );
 

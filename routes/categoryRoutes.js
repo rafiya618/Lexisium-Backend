@@ -12,8 +12,14 @@ import { adminAuth } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post("/", adminAuth, upload.single("image"), addCategory);
-router.put("/:id", adminAuth, upload.single("image"), updateCategory);
+// Expect named fields so controller can use req.files.image / req.files.audio
+const categoryUpload = upload.fields([
+  { name: "image", maxCount: 1 },
+  { name: "audio", maxCount: 1 },
+]);
+
+router.post("/", adminAuth, categoryUpload, addCategory);
+router.put("/:id", adminAuth, categoryUpload, updateCategory);
 
 router.delete("/:id", adminAuth, deleteCategory);
 router.get("/search", searchCategory);

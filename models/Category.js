@@ -1,9 +1,17 @@
 import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  description: { type: String },
+  word: { type: String, required: true, unique: true },
+
+  translation: {
+    english: { type: String },
+    urdu: { type: String },
+    roman: { type: String },
+  },
+
+  audio: { type: String },
   image: { type: String },
+  description: { type: String },
 });
 
 export default mongoose.model("Category", categorySchema);
